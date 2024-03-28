@@ -1,0 +1,103 @@
+<!-- app/views/assign_grader/all_student_info.html.erb -->
+<h1>All Application Information</h1>
+<div class = "allStudentInfoDisplay">
+<!-- searches every applicant application -->
+  <% if @applicants.exists?%>
+    <%== pagy_nav(@pagy) %>
+    <% @applicants.each do |applicant| %>
+      <% if applicant.student_app.present?%>
+        <h2>Applications for: <%= applicant.first_name%> <%= applicant.last_name%> <%= applicant.email%> </h2>
+        <h2><%= link_to "Assign To A Section", assign_to_section_path(applicant.id) %></h2>
+        <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th>Term</th>
+            <th>Course</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        <h3>Student Applications and Course Preferences</h3>
+        <% applicant.student_app.each do |app| %>
+          <tr>
+            <td><%= app.first_name %></td>
+            <td><%= app.last_name %></td>
+            <td><%= app.student_email %></td>
+            <td><%= app.campus_name %></td>
+            <td><%= app.term %></td>
+            <td><%=app.preferred_course%> </td>
+            <td><%= link_to "Edit", student_app_edit_path(app.id) %></td>
+            <td><%= link_to "Delete", student_app_delete_path(app.id), data: { turbo_method: :delete },
+                    onclick: "return confirm('Are you sure you want to delete this application?');" %></td>
+          </tr>
+        <% end %> 
+        </tbody>
+        </table>
+        <!-- searches every schedule of the student -->
+        <h3>Availability</h3>
+        <% if applicant.student_schedules.present? %>
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Start Time (24Hr HH:MM)</th>
+                <th>End Time (24Hr HH:MM)</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% applicant.student_schedules.each do |schedule| %>
+                <tr>
+                  <td><%= schedule.day %></td>
+                  <td><%= schedule.start_time %></td>
+                  <td><%= schedule.end_time %></td>
+                  <td><%= link_to "Edit", student_schedule_edit_path(schedule.id) %> </td>
+                  <td><%= link_to "Delete", student_schedule_delete_path(schedule.id), data: { turbo_method: :delete },
+                      onclick: "return confirm('Are you sure you want to delete this schedule?');" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>No submitted schedules.</p>
+        <% end %>
+        <!-- searches every course taken by the student -->
+        <h3>Courses Taken</h3>
+        <% if applicant.student_courses_takens.present? %>
+          <table>
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Grade</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% applicant.student_courses_takens.each do |course| %>
+                <tr>
+                  <td><%= course.course %></td>
+                  <td><%= course.grade %></td>
+                  <td><%= link_to "Edit", student_courses_taken_edit_path(course.id) %> </td>
+                  <td><%= link_to "Delete", student_courses_taken_delete_path(course.id), data: { turbo_method: :delete },
+                      onclick: "return confirm('Are you sure you want to delete this course?');" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>No courses taken.</p>
+        <% end %>
+      <% end %> 
+    <% end %>
+    <%== pagy_nav(@pagy) %>
+  <% else %>
+    <p>There are no student applications.</p>
+  <% end %>
+</div>

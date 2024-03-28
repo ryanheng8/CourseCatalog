@@ -1,0 +1,28 @@
+<!-- app/views/sections_instructors/new.html.erb -->
+<%= form_with model: @section_instructor, url: section_instructor_create_path, method: :post do %>
+  <!-- checks for errors -->
+  <% if @section_instructor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@section_instructor.errors.count, "error") %> prohibited this section instructor from being saved:</h2>
+
+      <ul>
+      <% @section_instructor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <label for="instructor_email">Email:</label>
+    <input type="text" id="instructor_email" name="section_instructor[instructor_email]" required value = <%= @instructor_email %>>
+  </div>
+
+  <div class="form-field">
+    <label for="section_id">Section ID(Required):</label>
+    <input type="number" id="section_id" name="section_instructor[section_id]" required value =  <%= @section_id %>>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+<% end %>

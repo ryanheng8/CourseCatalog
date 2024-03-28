@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  courseID: 1
+  name: MyText
+  creditHours: 1
+  numSections: 1
+  hasLab: false
+  academicCareer: MyText
+  classLevel: 1
+
+two:
+  courseID: 1
+  name: MyText
+  creditHours: 1
+  numSections: 1
+  hasLab: false
+  academicCareer: MyText
+  classLevel: 1

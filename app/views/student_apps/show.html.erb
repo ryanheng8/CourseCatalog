@@ -1,0 +1,39 @@
+<!-- app/views/student_app/show.html.erb -->
+<h1>Student Applications</h1>
+<% if current_user.student_app.present? %>
+  <!-- displays all applications in a table -->
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Campus</th>
+        <th>Term</th>
+        <th>Course</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% current_user.student_app.each do |app| %>
+      <tr>
+        <td><%= app.first_name %></td>
+        <td><%= app.last_name %></td>
+        <td><%= app.student_email %></td>
+        <td><%= app.campus_name %></td>
+        <td><%= app.term %></td>
+        <td><%=app.preferred_course%> </td>
+        <td><%= link_to "Edit", student_app_edit_path(app.id) %></td>
+        <td><%= link_to "Delete", student_app_delete_path(app.id), data: { turbo_method: :delete },
+                onclick: "return confirm('Are you sure you want to delete this application?');" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+    <p> No submitted applications. </p>
+<% end %>
+<p> <%= link_to "Submit an application", student_app_new_path%> </p>
+
+

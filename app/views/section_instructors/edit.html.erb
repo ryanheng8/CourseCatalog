@@ -1,0 +1,32 @@
+<!-- app/views/sections_instructors/edit.html.erb -->
+<%= form_for(@section_instructor, url: 'edit', method: :patch) do |f| %>
+  <!-- checks for errors -->
+  <% if @section_instructor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@section_instructor.errors.count, "error") %> prohibited this section instructor from being saved:</h2>
+
+      <ul>
+      <% @section_instructor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>To change the instructor, please delete this record and create a new one with the correct instructor.</p>
+
+  <!-- form fields -->
+  <div class="form-field">
+    <%= f.label :section_id %>
+    <%= f.text_field :section_id %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :email %>
+    <%= f.text_field :instructor_email , readonly: true%>
+  </div>
+
+  <div class="form-field">
+    <%= f.submit %>
+  </div>
+<% end %>

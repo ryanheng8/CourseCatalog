@@ -1,0 +1,33 @@
+<h1> Admins and Instructors waiting to be approved </h1>
+    <%# display the list of users to be approved %>
+    <% if @users.present? %>
+    <%== pagy_nav(@pagy) %>
+        <table>
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Approve user (this cannot be undone)</th>
+                    <th>Deny user (this cannot be undone)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user| %>
+                    <tr>
+                        <td><%= user.first_name%></td>
+                        <td><%= user.last_name%></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.role %></td>
+                        <td><%= link_to "Approve", approve_users_path(email: user.email), class: "button", 'data-turbo-method': :patch %></td>
+                        <td><%= link_to "Deny", deny_users_path(email: user.email), class: "button", 'data-turbo-method': :delete %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+       <%== pagy_nav(@pagy) %>
+    <% else %>
+        <p> No Instructors or Admin waiting to be approved</p>
+    <% end %>
+

@@ -1,0 +1,56 @@
+<!-- app/views/student_courses_taken/new.html.erb -->
+<%= form_with model: @student_courses_taken, url: 'new', method: :post do |f| %>
+   <!-- check for errors -->
+  <% if @student_courses_taken.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_courses_taken.errors.count, "error") %> prohibited this course from being saved:</h2>
+  
+      <ul>
+      <% @student_courses_taken.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <label for="student_email">Email (Only change in profile):</label>
+    <input type="text" id="student_email" name="student_courses_taken[student_email]" value = <%= current_user.email %> readonly>
+  </div>
+
+  <div class="form-field">
+    <label for="course">Course Catalog Number:</label>
+    <input type="text" id="course" name="student_courses_taken[course]">
+  </div>
+
+  <div class="form-field">
+    <label for="grade">Grade Obtained:</label>
+    <select id="grade" name="student_courses_taken[grade]">
+      <option value="A">A</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B">B</option>
+      <option value="B-">B-</option>
+      <option value="C+">C+</option>
+      <option value="C">C</option>
+      <option value="C-">C-</option>
+      <option value="D+">D+</option>
+      <option value="D">D</option>
+      <option value="E">E</option>
+      <option value="EM">EM</option>
+      <option value="I">I</option>
+      <option value="K">K</option>
+      <option value="PA">PA</option> 
+      <option value="NP">NP</option>
+      <option value="P">P</option>
+      <option value="R">R</option>
+      <option value="S">S</option>
+      <option value="U">U</option>
+    </select>
+  </div>
+
+  <button type="submit">Submit</button>
+
+</form>
+
+<% end %>

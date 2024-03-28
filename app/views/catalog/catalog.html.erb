@@ -1,0 +1,86 @@
+<!-- Course Catalog -->
+<h1> Search the Course Catalog</h1>
+
+<%= form_tag( :catalog, method: :get) do%>
+    <div class="searchBox">
+        <input type="text" placeholder="Enter a Course Number:" name="search">
+    </div>
+
+    <!-- this stuff is for the search button -->
+    <div class="searchButton">
+    <%= submit_tag "Submit" %>
+    </div>
+    <br>
+    <br>
+    <div class = "dropdown">
+    <%= label_tag "select_campus" %>
+    <%= select_tag "select_campus", options_for_select([ "Columbus", "Newark", "Lima" , "Marion", "Mansfield", "Wooster"]), prompt: 'Choose one...' %>
+    </div>
+
+    <div class = "dropdown">
+    <%= label_tag "select_term" %>
+    <%= select_tag "select_term", options_for_select([ "Autumn", "Spring", "Summer"]), prompt: 'Choose one...' %>
+    </div>
+
+    <div class = "dropdown">
+    <%= label_tag "select_level" %>
+    <%= select_tag "select_level", options_for_select([ 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000]), prompt: 'Choose one...' %>
+    </div>
+
+    <div class = "dropdown">
+    <%= label_tag "select_hours" %>
+    <%= select_tag "select_hours", options_for_select([ 1, 2, 3 , 4, 5]), prompt: 'Choose one...' %>
+    </div>
+
+    <div class = "dropdown">
+    <%= label_tag "select_mode" %>
+    <%= select_tag "select_mode", options_for_select([ "Hybrid Delivery", "In Person", "Distance Learning", "Distance Enhanced"]), prompt: 'Choose one...' %>
+    </div>
+
+    <div class = "dropdown">
+    <%= label_tag "select_career" %>
+    <%= select_tag "select_career", options_for_select([ "Undergraduate", "Graduate"]), prompt: 'Choose one...' %>
+    </div>
+<% end %>
+
+
+<h2>Search Results</h2>
+
+<%== pagy_nav(@pagy) %>
+
+<!-- container for the course information -->
+<div class = "courseDisplay">
+<% if @courses.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Course Number</th>
+        <th>Credit Hours</th>
+        <th>Course Level</th>
+        <th>Academic Career</th>
+        <th>Description</th>
+        <th>View</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.catalog_number %></td>
+          <td><%= course.credit_hours %></td>
+          <td><%= course.class_level %></td>
+          <td><%= course.academic_career %></td>
+          <td><%= course.course_description%>
+          <td><%= link_to "View", course_show_path(course.id) %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No matching courses found.</p>
+<% end %>
+</div>
+
+<%== pagy_nav(@pagy) %>
+

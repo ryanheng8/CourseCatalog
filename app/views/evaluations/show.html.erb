@@ -1,0 +1,33 @@
+<!-- app/views/evaluations/show.html.erb -->
+<p>
+  <strong>Instructor Email:</strong>
+  <% if @evaluation.instructor_email %>
+    <%= @evaluation.instructor_email %>
+  <% else %>
+    Instructor no longer in system
+  <% end %>
+</p>
+
+<p>
+  <strong>Student Email:</strong>
+  <%= @evaluation.student_email %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @evaluation.rating %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @evaluation.comments %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @evaluation.course.name %>
+</p>
+
+<br>
+
+<%= link_to 'Back', evaluations_path %>

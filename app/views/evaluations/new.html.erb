@@ -1,0 +1,51 @@
+<!-- app/views/evaluations/new.html.erb -->
+<h1>New Evaluation</h1>
+
+<%= form_with model: @evaluation, url: evaluations_path do |form| %>
+  <!-- checks for errors -->
+  <% if @evaluation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@evaluation.errors.count, "error") %> prohibited this course from being saved:</h2>
+  
+      <ul>
+      <% @evaluation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <!-- form fields -->
+  <div>
+    <%= form.label :instructor_email %>
+    <%= form.text_field :instructor_email, value: current_user.email, disabled: true %>
+    <%= form.hidden_field :instructor_email, value: current_user.email %>
+  </div>
+
+  <div>
+    <%= form.label :student_email %>
+    <%= form.text_field :student_email %>
+  </div>
+
+  <div>
+    <%= form.label :rating %>
+    <%= form.number_field :rating, max: 5, min: 1%>
+  </div>
+
+  <div>
+    <%= form.label :comments %>
+    <%= form.text_area :comments %>
+  </div>
+
+  <div>
+    <%= form.label :course_id %>
+    <%= form.collection_select :course_id, Course.all, :id, :name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<br>
+
+<%= link_to 'Back', evaluations_path %>

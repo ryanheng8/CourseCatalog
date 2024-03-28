@@ -1,0 +1,48 @@
+<!-- app/views/student_schedule/new.html.erb -->
+<%= form_with model: @student_schedule, url: 'new', method: :post do |f| %>
+  <!-- checks for errors -->
+  <% if @student_schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+  
+      <ul>
+      <% @student_schedule.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <label for="student_email">Email (Only change in profile):</label>
+    <input type="text" id="student_email" name="student_app[student_email]" value = <%= current_user.email %> readonly>
+  </div>
+
+  <div class="form-field">
+    <label for="day">Day of the Week:</label>
+    <select id="day" name="student_schedule[day]">
+      <option value="Monday">Monday</option>
+      <option value="Tuesday">Tuesday</option>
+      <option value="Wednesday">Wednesday</option>
+      <option value="Thursday">Thursday</option>
+      <option value="Friday">Friday</option>
+      <option value="Saturday">Saturday</option>
+      <option value="Sunday">Sunday</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="start_time">Start Time (24Hr HH:MM):</label>
+    <input type="text" id="start_time" name="student_schedule[start_time]">
+  </div>
+
+  <div class="form-field">
+    <label for="end_time">End Time (24Hr HH:MM):</label>
+    <input type="text" id="end_time" name="student_schedule[end_time]">
+  </div>
+
+  <button type="submit">Submit</button>
+
+</form>
+
+<% end %>

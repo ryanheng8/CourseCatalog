@@ -1,0 +1,33 @@
+<!-- app/views/student_schedule/show.html.erb -->
+<h1>Student Availability</h1>
+<div class = "studentScheduleDisplay">
+<!-- displays all of the schedules in a table -->
+<% if current_user.student_schedules.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Start Time (24Hr HH:MM)</th>
+        <th>End Time (24Hr HH:MM)</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.student_schedules.each do |schedule| %>
+        <tr>
+          <td><%= schedule.day %></td>
+          <td><%= schedule.start_time %></td>
+          <td><%= schedule.end_time %></td>
+          <td><%= link_to "Edit", student_schedule_edit_path(schedule.id) %> </td>
+          <td><%= link_to "Delete", student_schedule_delete_path(schedule.id), data: { turbo_method: :delete },
+              onclick: "return confirm('Are you sure you want to delete this schedule?');" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No submitted schedules.</p>
+<% end %>
+<p> <%= link_to "Add a schedule", student_schedule_new_path %> </p>
+</div>

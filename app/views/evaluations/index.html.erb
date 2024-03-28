@@ -1,0 +1,43 @@
+<!-- app/views/evaluations/index.html.erb -->
+<h1>Evaluations</h1>
+<% if @evaluations.present? %>
+  <%== pagy_nav(@pagy) %>
+  <!-- display all evalations in a table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Instructor Email</th>
+        <th>Student Email</th>
+        <th>Rating</th>
+        <th>Comments</th>
+        <th>Course</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @evaluations.each do |evaluation| %>
+        <tr>
+          <td>
+          <% if evaluation.instructor_email %>
+            <%= evaluation.instructor_email %>
+          <% else %>
+            Instructor no longer in system
+          <% end %>
+          </td>
+          <td><%= evaluation.student_email %></td>
+          <td><%= evaluation.rating %></td>
+          <td><%= evaluation.comments %></td>
+          <td><%= evaluation.course.name %></td>
+          <td><%= link_to 'Show', evaluation %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%== pagy_nav(@pagy) %>
+<% else %>
+  <p> No evaluations. </p>
+<% end %>
+<br>
+
+<%= link_to 'New Evaluation', new_evaluation_path %>

@@ -1,0 +1,74 @@
+<!-- app/views/sections/new.html.erb -->
+<%= form_with model: @section, url: 'new', method: :post do %>
+  <!-- checks for errors -->
+  <% if @section.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@section.errors.count, "error") %> prohibited this section from being saved:</h2>
+
+      <ul>
+      <% @section.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <!-- form fields -->
+   <div class="form-field">
+    <label for="course_id">Course ID(Required):</label>
+    <input type="number" id="course_id" name="section[course_id]" required>
+  </div>
+
+  <div class="form-field">
+    <label for="num_graders_needed">Number of Graders Needed:</label>
+    <input type="number" id="num_graders_needed" name="section[num_graders_needed]" min="0" >
+  </div>
+
+  <div class="form-field">
+    <label for="start_time">Start Time:</label>
+    <input type="datetime-local" id="start_time" name="section[start_time]" >
+  </div>
+
+  <div class="form-field">
+    <label for="end_time">End Time:</label>
+    <input type="datetime-local" id="end_time" name="section[end_time]" >
+  </div>
+
+  <div class="form-field">
+    <label for="day">Days of Class (MTuWThFSaSu):</label>
+    <input type="text" id="day" name="section[day]" >
+  </div>
+
+  <div class="form-field">
+    <label for="campus_name">Campus:</label>
+    <select id="campus_name" name="section[campus_name]">
+      <option value="Columbus">Columbus</option>
+      <option value="Newark">Newark</option>
+      <option value="Lima">Lima</option>
+      <option value="Marion">Marion</option>
+      <option value="Mansfield">Mansfield</option>
+      <option value="Wooster">Wooster</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="term">Term:</label>
+    <select type="text" id="term" name="section[term]">
+      <option value="Spring 2023">Spring 2023</option>
+      <option value="Summer 2023">Summer 2023</option>
+      <option value="Autumn 2023">Autumn 2023</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="is_in_person">Mode of Delivery:</label>
+    <select type="text" id="is_in_person" name="section[is_in_person]">
+      <option value="Distance Learning">Distance Learning</option>
+      <option value="In Person">In Person</option>
+      <option value="Distance Enhanced">Distance Enhanced</option>
+      <option value="Hybrid Delivery">Hybrid Delivery</option>
+    </select>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+<% end %>

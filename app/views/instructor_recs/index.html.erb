@@ -1,0 +1,40 @@
+<!-- app/views/instructor_recs/index.html.erb -->
+<h1>All Instructor Recommendation Records</h1>
+<% if @instructor_recs.present? %>
+  <%== pagy_nav(@pagy) %>
+  <!-- displays all instructor recs in a table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Recommendation ID</th>
+        <th>Instructor Email</th>
+        <th>Student Email</th>
+        <th>Section ID</th>
+        <th>Specific Student Request Flag</th>
+        <th>Reason</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @instructor_recs.each do |instructor_rec| %>
+        <tr>
+          <td><%= instructor_rec.id %></td>
+          <td><%= instructor_rec.instructor_email %></td>
+          <td><%= instructor_rec.student_email %></td>
+          <td><%= instructor_rec.section_id %></td>
+          <td><%= instructor_rec.specific_student_request_flag %></td>
+          <td><%= instructor_rec.reason %></td>
+          <td><%= link_to "Delete", instructor_recs_delete_path(instructor_rec.id), data: { turbo_method: :delete },
+                onclick: "return confirm('Are you sure you want to delete this recommendation?');" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%== pagy_nav(@pagy) %>
+<% else %>
+  <p> No instructor recommendations. </p>
+<% end %>
+<br>
+
+<%= link_to 'New Instructor Rec', new_instructor_rec_path %>

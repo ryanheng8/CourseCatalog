@@ -1,0 +1,70 @@
+<!-- app/views/student_app/new.html.erb -->
+<%= form_with model: @student_app, url: 'new', method: :post do |f| %>
+   <!-- checks for errors -->
+  <% if @student_app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_app.errors.count, "error") %> prohibited this application from being saved:</h2>
+  
+      <ul>
+      <% @student_app.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <label for="first_name">First Name (Only change in profile):</label>
+    <input type="text" id="first_name" name="student_app[first_name]" value = <%= current_user.first_name %> readonly>
+  </div>
+
+  <div class="form-field">
+    <label for="last_name">Last Name (Only change in profile):</label>
+    <input type="text" id="last_name" name="student_app[last_name]" value = <%= current_user.last_name %> readonly>
+  </div>
+
+  <div class="form-field">
+    <label for="student_email">Email (Only change in profile):</label>
+    <input type="text" id="student_email" name="student_app[student_email]" value = <%= current_user.email %> readonly>
+  </div>
+
+  <div class="form-field">
+    <label for="campus_name">Campus:</label>
+    <select id="campus_name" name="student_app[campus_name]">
+      <option value="Columbus">Columbus</option>
+      <option value="Newark">Newark</option>
+      <option value="Lima">Lima</option>
+      <option value="Marion">Marion</option>
+      <option value="Mansfield">Mansfield</option>
+      <option value="Wooster">Wooster</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="term">Term:</label>
+    <select type="text" id="term" name="student_app[term]">
+      <option value="Spring 2023">Spring 2023</option>
+      <option value="Summer 2023">Summer 2023</option>
+      <option value="Autumn 2023">Autumn 2023</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="term">Preferred Course:</label>
+    <select type="text" id="preferred_course" name="student_app[preferred_course]">
+      <% if current_user.student_courses_takens.empty? %>
+        <option value="No Courses Taken">No Courses Taken</option>
+      <% else %>
+          <option value="No Preferrence">No Preferrence</option>          
+          <% current_user.student_courses_takens.each do |course| %>
+            <option value= "<%= course.course %>" ><%= course.course %></option>
+          <% end %>
+      <% end %>
+    </select>
+  </div>
+  <p> <%= link_to "Add previously taken courses", student_courses_taken_new_path%> </p>
+  <button type="submit">Submit</button>
+
+</form>
+
+<% end %>

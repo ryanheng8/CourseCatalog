@@ -1,0 +1,5 @@
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>Your role as a <%= @user.role %> on the CSE course catalog has been approved. You may now access all <%= @user.role %> resources through the link below.</p>
+
+<p><%= link_to "CSE course catalog", new_user_session_url %></p>

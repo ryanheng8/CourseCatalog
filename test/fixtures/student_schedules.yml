@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  studentScheduleID: 1
+  studentEmail: MyText
+  startTimeAvail: MyText
+  endTimeAvail: MyText
+  day: MyText
+
+two:
+  studentScheduleID: 1
+  studentEmail: MyText
+  startTimeAvail: MyText
+  endTimeAvail: MyText
+  day: MyText

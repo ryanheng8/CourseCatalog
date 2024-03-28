@@ -1,0 +1,54 @@
+<!-- app/views/courses/edit.html.erb -->
+<%= form_for(@course, url: 'edit', method: :patch) do |f| %>
+  <!-- checks for errors -->
+  <% if @course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+      <% @course.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :credit_hours %>
+    <%= f.number_field :credit_hours, in: 1..5, step: 1 %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :Component %>
+    <%= f.select :has_lab, options_for_select([['Lecture', 'Lecture'], ['Labratory', 'Labratory'], ['Independant Study', 'Independant Study'], ['Recitation', 'Recitation'], ['Seminar', 'Seminar'], ['Field Experience', 'Field Experience'], ['Workshop', 'Workshop'], ['Clinical', 'Clinical']], f.object.has_lab) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :academic_career %>
+    <%= f.select :academic_career, options_for_select(["Undergraduate", "Graduate"]) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :class_level %>
+    <%= f.number_field :class_level,in: 1..8, steps: 1 %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :catalog_number %>
+    <%= f.number_field :catalog_number %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :course_description %>
+    <%= f.text_area :course_description %>
+  </div>
+
+  <div class="form-field">
+    <%= f.submit %>
+  </div>
+<% end %>

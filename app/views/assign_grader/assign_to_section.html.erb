@@ -1,0 +1,63 @@
+<!-- app/views/assign_grader/assign_to_section.html.erb -->
+<h1>All Sections Needing Graders</h1>
+<div class = "assignToSectionDisplay">
+  <% if @sections.present?%>
+    <%== pagy_nav(@pagy) %>
+      <!-- displays all sections in a table -->
+      <table>
+      <thead>
+      <tr>
+          <th>ID</th>
+          <th>Campus Name</th>
+          <th>Term</th>
+          <th>Instructional Mode</th>
+          <th>Days</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Graders Needed</th>
+          <th>Instructors</th>
+          <th>Assign Grader</th>
+          <th>Edit</th>
+          <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+          <% @sections.each do |section| %>
+          <tr>
+              <td><%= section.id %></td>
+              <td><%= section.campus_name %></td>
+              <td><%= section.term %></td>
+              <td><%= section.is_in_person %></td>
+              <td><%= section.day %></td>
+              <td><%= section.start_time %></td>
+              <td><%= section.end_time%></td>
+              <td><%= section.num_graders_needed%></td>
+              <td>
+              <table>
+                  <tbody>
+                  <% section_instructors = SectionInstructor.where(section_id: section.id) %>
+                  <% section_instructors.each do |instructor| %>
+                      <tr>
+                      <td><%= instructor.instructor_email %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+              </table>
+              </td>
+              <% if @user.present?%>
+                <td><%= link_to "Assign Grader", section_instructor_new_prefill_path(section.id, @user.email) %></td>
+              <% else %>
+                <td><%= link_to "Assign Grader", section_instructor_new_instructor_path(section.id) %></td>
+              <% end %>
+              <td><%= link_to "Edit Section", section_edit_path(section.id) %></td>
+              <td><%= link_to "Delete Section", section_delete_path(section.id), data: { turbo_method: :delete },
+              onclick: "return confirm('Are you sure you want to delete this section?');" %></td>
+          </tr>
+          <% end %>
+      </tbody>
+      </table>
+    <%== pagy_nav(@pagy) %>
+  <% else %>
+    <p>There are no sections needing graders.</p>
+  <% end %>
+</div>

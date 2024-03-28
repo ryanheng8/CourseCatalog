@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Team2Lab2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <!-- creates the topnav -->
+  <body>
+    <div class="topnav">
+      <%= link_to "Home", root_path %>
+      <%= link_to "Browse", catalog_path, method: :get %>
+      <!-- adds student abilities -->
+      <% if can? :submit_forms, StudentApp %>
+        <div class="abilities-drop">
+          <button class="dropbtn">Student Submit Forms
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="drop-content">
+            <%= link_to "Add Taken Course", student_courses_taken_new_path, method: :get %>
+            <%= link_to "Add Schedule Availability", student_schedule_new_path, method: :get %>
+            <%= link_to "Add Student Application", student_app_new_path, method: :get %>
+          </div>
+        </div>
+        <div class="abilities-drop">
+          <button class="dropbtn">Student View Forms
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="drop-content">
+            <%= link_to "View Taken Courses", student_courses_taken_show_path, method: :get %>
+            <%= link_to "View Schedule Availability", student_schedule_show_path, method: :get %>
+            <%= link_to "View Student Applications", student_app_show_path, method: :get %>
+          </div>
+        </div>
+      <% end %>
+      <!-- adds admin abilities -->
+      <% if can? :manage, :all %>
+        <div class="abilities-drop">
+          <button class="dropbtn">Admin Control
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="drop-content">
+            <%= link_to "Add Course", courses_new_path, method: :get %>
+            <%= link_to "Add Section", courses_sections_new_path, method: :get %>
+            <%= link_to "Admin Reload", admin_reload_path, method: :get %>
+            <%= link_to "Approve Users", approve_path, method: :get %>
+            <%= link_to "See Users", users_path, method: :get %>
+          </div>
+        </div>
+        <div class="abilities-drop">
+          <button class="dropbtn">Section Instructors
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="drop-content">
+            <%= link_to "See All Section Instructors", section_instructor_index_path, method: :get %>
+            <%= link_to "See All Applications", assign_grader_path, method: :get %>
+            <%= link_to "See All Sections Needing Graders", sections_need_graders_path, method: :get %>
+            <%= link_to "Add Section Instructor", section_instructor_new_path, method: :get %>
+          </div>
+        </div>
+      <% end %>
+      <!-- adds instructor rec abilities -->
+      <% if can? :Recommend, InstructorRec %>
+        <div class="abilities-drop">
+          <button class="dropbtn">Instructor Recommendation
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="drop-content">
+            <%= link_to "Recommend Student", new_instructor_rec_path, method: :get %>
+            <%= link_to "View Recommendations", instructor_recs_path, method: :get %>
+          </div>
+        </div>
+      <% end %>
+      <!-- adds evaluation abilities -->
+      <% if can? :create, Evaluation %>
+        <div class="abilities-drop">
+          <button class="dropbtn">Instructor Evaluation
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="drop-content">
+            <%= link_to "New Evaluation", new_evaluation_path, method: :get %>
+            <% if can? :create, Evaluation %>
+              <%= link_to "View Evaluations", evaluations_path, method: :get %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <!-- adds general account info drop down -->
+      <div class="account-drop">
+        <button class="dropbtn">Account
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="drop-content">
+          <% if !user_signed_in? %>
+            <%= link_to "Forgot Password", new_user_password_path, 'data-turbo-method': :get %>
+            <%= link_to "Sign up", new_user_registration_path, 'data-turbo-method': :get %>
+            <%= link_to "Log in", new_user_session_path, 'data-turbo-method': :get %>
+          <% else %>
+            <%= link_to "Edit Account", edit_user_registration_path, 'data-turbo-method': :get %>
+            <%= link_to "Log Out", destroy_user_session_path, 'data-turbo-method': :delete %>
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+
+    <%# devise message alerts #%>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>

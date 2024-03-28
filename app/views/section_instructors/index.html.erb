@@ -1,0 +1,30 @@
+<!-- app/views/sections_instructors/index.html.erb -->
+<h1>Section Instructors</h1>
+<% if @section_instructors.present? %>
+  <%== pagy_nav(@pagy) %>
+  <!-- displays all section instructors in a table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Section ID</th>
+        <th>Instructor Email</th>
+        <th>Edit Section Instructor</th>
+        <th>Delete Section Instructor</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @section_instructors.each do |instructor| %>
+      <tr>
+        <td><%= link_to instructor.section_id, section_edit_path(instructor.section_id) %></td>
+        <td><%= instructor.instructor_email %></td>
+        <td><%= link_to "Edit", section_instructor_edit_path(section_id: instructor.section_id, instructor_email: instructor.instructor_email) %></td>
+        <td><%= link_to "Delete", section_instructor_delete_path(section_id: instructor.section_id, instructor_email: instructor.instructor_email), data: { turbo_method: :delete },
+                onclick: "return confirm('Are you sure you want to delete this instructor?');" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%== pagy_nav(@pagy) %>
+<% else %>
+    <p> No section instructors. </p>
+<% end %>

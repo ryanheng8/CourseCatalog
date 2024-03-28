@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sectionInstructorsID: 1
+  sectionID: 1
+  instructorEmail: MyText
+  taEmail: MyText
+
+two:
+  sectionInstructorsID: 1
+  sectionID: 1
+  instructorEmail: MyText
+  taEmail: MyText

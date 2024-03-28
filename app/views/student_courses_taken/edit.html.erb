@@ -1,0 +1,36 @@
+<!-- app/views/student_courses_taken/edit.html.erb -->
+<%= form_for(@student_courses_taken, url: 'edit', method: :patch) do |f| %>
+    <!-- check for errors -->
+  <% if @student_courses_taken.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_courses_taken.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+      <% @student_courses_taken.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <!-- form fields -->
+  <div class="form-field">
+    <%= f.label :student_email %>
+    <%= f.text_field :student_email , readonly: true%>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :course %>
+    <%= f.number_field :course %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :grade %>
+    <%= f.select :grade, options_for_select([['A', 'A'], ['A-', 'A-'], ['B+', 'B+'], ['B', 'B'], ['B-', 'B-'], ['C+', 'C+'],
+          ['C', 'C'], ['C-', 'C-'], ['D+', 'D+'], ['D', 'D'], ['E', 'E'], ['EM', 'EM'], ['I', 'I'], ['K', 'K'], 
+          ['PA', 'PA'], ['NP', 'NP'], ['P', 'P'], ['R', 'R'], ['S', 'S'], ['U', 'U']], f.object.grade) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.submit %>
+  </div>
+<% end %>

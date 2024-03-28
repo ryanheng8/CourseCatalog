@@ -1,0 +1,65 @@
+<!-- app/views/courses/new.html.erb -->
+<%= form_with model: @course, url: 'new', method: :post do %>
+  <!-- checks for errors -->
+  <% if @course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+  
+      <ul>
+      <% @course.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <label for="name">Course Name(Required):</label>
+    <input type="text" id="name" name="course[name]" required>
+  </div>
+
+  <div class="form-field">
+    <label for="credit_hours">Credit Hours(1-5):</label>
+    <input type="number" id="credit_hours" name="course[credit_hours]" min="1" max="5">
+  </div>
+
+  <div class="form-field">
+    <label for="has_lab">Has Lab:</label>
+    <select id="has_lab" name="course[has_lab]">
+      <option value="Lecture">Lecture</option>
+      <option value="Labratory">Labratory</option>
+      <option value="Independant Study">Independant Study</option>
+      <option value="Recitation">Recitation</option>
+      <option value="Seminar">Seminar</option>
+      <option value="Field Experience">Field Experience</option>
+      <option value="Workshop">Workshop</option>
+      <option value="Clinical">Clinical</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="academic_career">Academic Career:</label>
+    <select id="academic_career" name="course[academic_career]">
+      <option value="Undergraduate">Undergraduate</option>
+      <option value="Graduate">Graduate</option>
+    </select>
+  </div>
+
+  <div class="form-field">
+    <label for="class_level">Class Level(1-8):</label>
+    <input type="number" id="class_level" name="course[class_level]" min="1" max="8">
+  </div>
+
+  <div class="form-field">
+    <label for="catalog_number">Catalog Number:</label>
+    <input type="number" id="catalog_number" name="course[catalog_number]">
+  </div>
+
+  <div class="form-field">
+    <label for="course_description">Course Description:</label>
+    <textarea id="course_description" name="course[course_description]"></textarea>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+<% end %>

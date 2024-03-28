@@ -1,0 +1,48 @@
+<!-- Homepage -->
+<h1 class="home-header">CSE Course Catalog</h1>
+<div class="home-links">
+    <%= link_to "Browse and Search Course Catalog", catalog_path, method: :get %><br/>
+    <div class="home-links">
+        <!-- adds admin links -->
+        <% if can? :manage, :all %>
+            <h3>Admin Control</h3>
+            <%= link_to "See Users", users_path, method: :get %>
+            <%= link_to "Approve Users", approve_path, method: :get %>
+            <%= link_to "Admin Reload", admin_reload_path, method: :get %>
+            <%= link_to "Add Course", courses_new_path, method: :get %>
+            <%= link_to "Add Section", courses_sections_new_path, method: :get %>
+            <h3>Section Instructors</h3>
+            <%= link_to "See All Section Instructors", section_instructor_index_path, method: :get %>
+            <%= link_to "See All Applications", assign_grader_path, method: :get %>
+            <%= link_to "See All Sections Needing Graders", sections_need_graders_path, method: :get %>
+            <%= link_to "Add Section Instructor", section_instructor_new_path, method: :get %>
+        <% end %>
+        <!-- adds student links -->
+        <% if can? :submit_forms, StudentApp %>
+            <h3>Student Submit Forms</h3>
+            <%= link_to "Add Taken Course", student_courses_taken_new_path, method: :get %>
+            <%= link_to "Add Schedule Availability", student_schedule_new_path, method: :get %>
+            <%= link_to "Add Student Application", student_app_new_path, method: :get %>
+            <h3>Student View Forms</h3>
+            <%= link_to "View Taken Courses", student_courses_taken_show_path, method: :get %>
+            <%= link_to "View Schedule Availability", student_schedule_show_path, method: :get %>
+            <% if can? :manage, :all %>
+                <%= link_to "View Student Applications", student_app_show_path, method: :get %>
+            <% end %>
+        <% end %>
+        <!-- adds instructor rec links --> 
+        <% if can? :Recommend, InstructorRec %>
+            <h3>Instructor Recommendation Control</h3>
+             <%= link_to "Recommend Student", new_instructor_rec_path, method: :get %>
+             <%= link_to "View Recommendations", instructor_recs_path, method: :get %>
+        <% end %>
+        <!-- adds evaluation links --> 
+        <% if can? :create, Evaluation %>
+            <h3>Instructor Evaluation Control</h3>
+             <%= link_to "New Evaluation", new_evaluation_path, method: :get %>
+             <% if can? :create, Evaluation %>
+              <%= link_to "View Evaluations", evaluations_path, method: :get %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

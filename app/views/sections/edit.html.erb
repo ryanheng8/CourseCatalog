@@ -1,0 +1,59 @@
+<!-- app/views/sections/edit.html.erb -->
+<%= form_for(@section, url: 'edit', method: :patch) do |f| %>
+  <!-- checks for errors -->
+  <% if @section.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@section.errors.count, "error") %> prohibited this section from being saved:</h2>
+
+      <ul>
+      <% @section.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <%= f.label :course_id %>
+    <%= f.text_field :course_id %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :number_of_graders_needed %>
+    <%= f.number_field :num_graders_needed %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :start_time %>
+    <%= f.datetime_local_field :start_time, value: @section.start_time&.strftime('%Y-%m-%dT%H:%M:%S'), pattern: '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', maxlength: 4 %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :end_time %>
+    <%= f.datetime_local_field :end_time, value: @section.end_time&.strftime('%Y-%m-%dT%H:%M:%S'), pattern: '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', maxlength: 4 %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :day %>
+    <%= f.text_field :day %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :campus %>
+    <%= f.select :campus_name, options_for_select([['Columbus', 'Columbus'], ['Newark', 'Newark'], ['Lima', 'Lima'], ['Marion', 'Marion'], ['Wooster', 'Wooster'], ['Mansfield', 'Mansfield']], f.object.campus_name) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :term %>
+    <%= f.select :term, options_for_select([['Summer 2023', 'Summer 2023'], ['Spring 2023', 'Spring 2023'], ['Autumn 2023', 'Autumn 2023']], f.object.term) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :mode_of_delivery %>
+    <%= f.select :is_in_person, options_for_select([['In Person', 'In Person'], ['Hybrid Delivery', 'Hybrid Delivery'], ['Distance Learning', 'Distance Learning'], ['Distance Enhanced', 'Distance Enhanced']], f.object.is_in_person) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.submit %>
+  </div>
+<% end %>

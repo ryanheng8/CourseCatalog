@@ -1,0 +1,52 @@
+<!-- app/views/student_app/edit.html.erb -->
+<%= form_for(@student_app, url: 'edit', method: :patch) do |f| %>
+  <!-- checks for errors -->
+  <% if @student_app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_app.errors.count, "error") %> prohibited this application from being saved:</h2>
+
+      <ul>
+      <% @student_app.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name , readonly: true%>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name , readonly: true%>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :student_email %>
+    <%= f.text_field :student_email , readonly: true%>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :campus_name %>
+    <%= f.select :campus_name, options_for_select([['Columbus', 'Columbus'], ['Newark', 'Newark'], ['Lima', 'Lima'], ['Marion', 'Marion'], ['Wooster', 'Wooster'], ['Mansfield', 'Mansfield']], f.object.campus_name) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :term %>
+    <%= f.select :term, options_for_select([['Summer 2023', 'Summer 2023'], ['Spring 2023', 'Spring 2023'], ['Autumn 2023', 'Autumn 2023']], f.object.term) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :preferred_course %>
+    <%= f.collection_select :preferred_course, current_user.student_courses_takens, :course, :course %>
+  </div>
+
+  <div class="form-field">
+    <%= f.submit %>
+  </div>
+
+
+
+<% end %>

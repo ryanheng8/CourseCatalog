@@ -1,0 +1,6 @@
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>Your role as a <%= @user.role %> on the CSE course catalog has been denied.</p>
+
+<p>Your current account has been removed. If you think this was a mistake or would like to be approved for another role please create a new account through the link below.</p>
+<p><%= link_to "Create Account", new_user_registration_url %></p>

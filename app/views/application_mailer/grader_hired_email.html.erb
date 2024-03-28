@@ -1,0 +1,11 @@
+<p>Congratualtions <%= @user.first_name %>,</p>
+
+<p>Your application to grade for <%= @course.name %> has been accepted for the <%= @section.term %> term!</p>
+
+<p>You can find the details of the section you are grading for below. Keep in mind some information may be yet to be determined still and are subject to change. Please keep an eye out for any changes on the CSE Course catalog at <%= link_to @course.name, course_show_url(@course.id) %>.</p>
+
+<p>CSE <%= @course.catalog_number %>: <%= @course.name %></p>
+<p><%= @course.has_lab %> Section</p>
+<p><%= @section.campus_name %> Campus</p>
+<p>Scheduled: <%= @section.day.empty? ? "To be determined" : @section.day %>, <% if @section.start_time.nil? or @section.end_time.nil? %>time to be determined<% else %>from <%= @section.start_time.strftime("%H:%M") %>-<%= @section.end_time.strftime("%H:%M") %> UTC<% end %></p>
+<p>Mode of delivery:  <%= @section.is_in_person.nil? ? "To be determined" : @section.is_in_person %></p>

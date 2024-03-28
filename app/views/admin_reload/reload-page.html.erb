@@ -1,0 +1,17 @@
+<!-- app/views/admin_reload/reload-page.html.erb -->
+<h1>Reload Page</h1>
+
+<%= form_with url: admin_reload_reload_page_path, method: :post, local: true do |f| %>
+  <!-- form fields -->
+  <div>
+    <%= label_tag(:dropdown1, "Select Term:") %>
+    <%= select_tag(:term, options_for_select(["Summer 2023", "Spring 2023", "Autumn 2023"])) %>
+  </div>
+
+  <div>
+    <%= label_tag(:dropdown2, "Select Campus:") %>
+    <%= select_tag(:campus, options_for_select(["Columbus", "Newark", "Lima", "Marion", "Wooster", "Mansfield"])) %>
+  </div>
+
+  <%= submit_tag("Reload Data") %>
+<% end %>

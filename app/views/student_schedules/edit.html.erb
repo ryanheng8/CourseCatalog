@@ -1,0 +1,40 @@
+<!-- app/views/student_schedule/edit.html.erb -->
+<%= form_for(@student_schedule, url: 'edit', method: :patch) do |f| %>
+  <!-- checks for errors -->
+  <% if @student_schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student_schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+      <ul>
+      <% @student_schedule.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields -->
+  <div class="form-field">
+    <%= f.label :student_email %>
+    <%= f.text_field :student_email , readonly: true%>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :day %>
+    <%= f.select :day, options_for_select([['Monday', 'Monday'], ['Tuesday', 'Tuesday'], ['Wednesday', 'Wednesday'], ['Thursday', 'Thursday'], ['Friday', 'Friday'], ['Saturday', 'Saturday'], ['Sunday', 'Sunday']], f.object.day) %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :start_time %>
+    <%= f.text_field :start_time %>
+  </div>
+
+  <div class="form-field">
+    <%= f.label :end_time %>
+    <%= f.text_field :end_time %>
+  </div>
+
+  <div class="form-field">
+    <%= f.submit %>
+  </div>
+
+<% end %>

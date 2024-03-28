@@ -1,0 +1,50 @@
+<!-- app/views/instructor_recs/new.html.erb -->
+<h1>New Recommendation</h1>
+
+<%= form_with(model: @instructor_rec, url: 'new', method: :post) do |form| %>
+  <!-- checks for errors -->
+  <% if @instructor_rec.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instructor_rec.errors.count, "error") %> prohibited this instructor recommendation from being saved:</h2>
+
+      <ul>
+        <% @instructor_rec.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- form fields-->
+  <div class="field">
+    <%= form.label :instructor_email, "Instructor Email:" %>
+    <%= form.text_field :instructor_email, value: current_user.email, disabled: true %>
+    <%= form.hidden_field :instructor_email, value: current_user.email %>
+  </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :student_email, "Student Email:" %>
+    <%= form.text_field :student_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason, "Reasoning for Recommending Student:" %>
+    <%= form.text_area :reason %>
+  </div>
+
+  <div class="field">
+    <%= form.label :specific_student_request_flag do %>
+      <%= form.check_box :specific_student_request_flag %>
+      Requesting for a specific section
+    <% end %>
+  </div>
+
+  <div class="field" id="section-id-field">
+    <%= form.label :section_id, "Section ID:" %>
+    <%= form.text_field :section_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
